@@ -1,0 +1,23 @@
+@import-normalize;
+
+html {
+  font-size: 15px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+  background: #F2F2F2;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  max-width: 1200px;
+  padding: 0 8px;
+  margin: 0 auto;
+  flex: 1 0 auto;
+}
