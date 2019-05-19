@@ -1,0 +1,36 @@
+.header {
+  padding: 18px 0 15px;
+  background: linear-gradient(180deg, #090810 0%, #171236 100%);
+}
+
+.container {
+  max-width: 1200px;
+  padding: 0 8px;
+  margin: 0 auto;
+  position: relative;
+}
+.topline{
+  justify-content: space-between;
+  align-items: center;
+  height: 42px;
+  display: flex;
+}
+.wrap {
+  padding: 8px 0 0;
+  width: 265px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.authLink {
+  font-size: 12px;
+  text-decoration: none;
+  line-height: 40px;
+  letter-spacing: 1px;
+  color: inherit;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}

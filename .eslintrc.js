@@ -8,6 +8,7 @@ module.exports = {
   },
   rules: {
     'max-len': [2, 100, 2],
+    'prettier/prettier' : 'error',
     'import/no-extraneous-dependencies': [
       'error',
       {

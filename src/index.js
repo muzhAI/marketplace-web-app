@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './style/main.scss';
+import './index.css';
+import Router from './scenes/router';
+import Api from './api';
 
-function App() {
-  return (
-    <h1>Web Marketpace App</h1>
-  )
+class App extends Component {
+  constructor(props) {
+    super(props);
+    Api.init();
+  }
+
+  render() {
+    console.log(Api.Auth.isLoggedIn);
+    return <Router />;
+  }
 }
-
+// eslint-disable-next-line no-undef
 ReactDOM.render(<App />, document.getElementById('root'));
