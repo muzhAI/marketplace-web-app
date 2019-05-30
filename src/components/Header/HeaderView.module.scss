@@ -9,12 +9,14 @@
   margin: 0 auto;
   position: relative;
 }
-.topline{
+
+.topLine{
   justify-content: space-between;
   align-items: center;
   height: 42px;
   display: flex;
 }
+
 .wrap {
   padding: 8px 0 0;
   width: 265px;
@@ -22,6 +24,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
 .authLink {
   font-size: 12px;
   text-decoration: none;

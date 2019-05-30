@@ -1,19 +1,36 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { Provider, connect } from 'react-redux';
+import { appOperations } from './modules/app';
 import Router from './scenes/router';
-import Api from './api';
+import store from './store/store';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    Api.init();
+    props.dispatch(appOperations.init());
   }
 
   render() {
-    console.log(Api.Auth.isLoggedIn);
+    if (this.props.isLoading) {
+      return <h1>Loading...</h1>;
+    }
     return <Router />;
   }
 }
-// eslint-disable-next-line no-undef
-ReactDOM.render(<App />, document.getElementById('root'));
+
+function mapStateToProps(state) {
+  return {
+    isLoading: state.app.isLoading,
+  };
+}
+
+const AppConnected = connect(mapStateToProps)(App);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <AppConnected />
+  </Provider>,
+  document.getElementById('root'),
+);

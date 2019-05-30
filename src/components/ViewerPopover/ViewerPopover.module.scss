@@ -1,0 +1,47 @@
+.container {
+  position: absolute;
+  height: 100px;
+  width: 209px;
+  top: 50px;
+  right: 63px;
+  background: #fff;
+  z-index: 10;
+  border-radius: 4px;
+}
+
+.topBox {
+  display: flex;
+  height: 63px;
+}
+.avatarWrap {
+  width: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rightBox {
+  font-size: 10px;
+  line-height: 20px;
+  letter-spacing: 1px;
+}
+.name {
+  color: #000;
+  margin: 0;
+  margin: 8px 0 0;
+}
+
+.email {
+  color: #979797;
+  margin: 0;
+}
+
+.profile {
+letter-spacing: 1px;
+color: #349A89;
+margin: 0;
+}
+
+.btn{
+  margin: 5px 15px;
+}

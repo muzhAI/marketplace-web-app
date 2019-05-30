@@ -7,7 +7,9 @@ function Inbox() {
   return (
     <>
       <Header />
-      <div />
+      <div>
+        <h1>Inbox</h1>
+      </div>
     </>
   );
 }

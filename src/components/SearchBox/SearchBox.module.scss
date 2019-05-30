@@ -1,8 +1,31 @@
+@mixin placeholder {
+  &.placeholder {
+    @content;
+  }
+
+  &:-moz-placeholder {
+    @content;
+  }
+
+  &::-moz-placeholder {
+    @content;
+  }
+
+  &:-ms-input-placeholder {
+    @content;
+  }
+
+  &::-webkit-input-placeholder {
+    @content;
+  }
+}
+
 .wrapper {
   padding: 40px 0 0 0;
   height: 50px;
   position: relative;
 }
+
 .searchBox {
   width: 855px;
   height: 50px;
@@ -11,9 +34,11 @@
   display: flex;
   justify-content: space-between;
 }
+
 .inputWrap {
   position: relative;
 }
+
 .input {
   box-sizing: border-box;
   height: 100%;
@@ -21,15 +46,28 @@
   border: 0;
   border-radius: 4px;
   background: #fff;
-  color: #7b7b7bc6;
+  color: #66666677;
   line-height: 31px;
   position: relative;
   font-size: inherit;
   font-family: inherit;
+
+  @include placeholder {
+    color: #7b7b7bc6;
+  }
+
+  &:focus {
+    @include placeholder {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+  }
 }
-.location{
+
+.location {
   width: 198px;
   padding: 10px 10px 9px 38px;
+
   &__img {
     position: absolute;
     left: 0;
@@ -39,9 +77,11 @@
     z-index: 10;
   }
 }
+
 .search {
   width: 467px;
   padding: 10px 10px 9px 52px;
+
   &__img {
     position: absolute;
     left: 0;

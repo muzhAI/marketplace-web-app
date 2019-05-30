@@ -1,19 +1,19 @@
 import React from 'react';
-// import T from 'prop-types';
+import T from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Header, Footer } from '../../components';
 import { routes } from '../router';
-import Api from '../../api';
-import Login from '../Login/Login';
-import Register from '../Register/Register';
+import Login from '../Login/LoginContainer';
+import Register from '../Register/RegisterContainer';
 
-function Auth() {
+function Auth({ viewer }) {
   return (
     <>
       <Header light />
       <div className="main">
         <Switch>
-          {Api.Auth.isLogedIn && <Redirect to={routes.home} />}
+          {viewer && <Redirect to={routes.home} />}
           <Route path={routes.login} component={Login} exact />
           <Route path={routes.register} component={Register} exact />
           <Redirect from={routes.auth} to={routes.login} />
@@ -24,6 +24,18 @@ function Auth() {
   );
 }
 
-Auth.propTypes = {};
+Auth.propTypes = {
+  viewer: T.object,
+};
 
-export default Auth;
+Auth.defaultProps = {
+  viewer: null,
+};
+
+function mapStateToProps(state) {
+  return {
+    viewer: state.viewer.user,
+  };
+}
+
+export default connect(mapStateToProps)(Auth);
