@@ -1,7 +1,7 @@
 import { compose, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import RegisterView from './RegisterView';
+import Register from './RegisterView';
 import { authOperations } from '../../modules/auth';
 import { routes } from '../router';
 
@@ -15,7 +15,7 @@ const mapDispatchToProps = {
   register: authOperations.register,
 };
 
-const enhance = compose(
+const enhancer = compose(
   withRouter,
   connect(
     mapStateToProps,
@@ -26,15 +26,16 @@ const enhance = compose(
     handlePasswordToggle: ({ passwordToggle, isPasswordVisible }) => () => {
       passwordToggle(!isPasswordVisible);
     },
-    handleRegister: (props) => (body) => {
+    handleRegister: (props) => async (body) => {
       try {
-        props.register(body);
+        await props.register(body);
         props.history.push(routes.home);
       } catch (err) {
         throw err;
       }
+      // TODO: handle errors
     },
   }),
 );
 
-export default enhance(RegisterView);
+export default enhancer(Register);

@@ -2,7 +2,7 @@ import { handleActions } from '@letapp/redux-actions';
 import * as actions from './appActions';
 
 const INITIAL_STATE = {
-  isLoading: false,
+  isLoading: true,
   error: null,
   isError: false,
 };

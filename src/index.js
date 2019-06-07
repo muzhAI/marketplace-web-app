@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './styles/index.scss';
 import { Provider, connect } from 'react-redux';
 import { appOperations } from './modules/app';
 import Router from './scenes/router';

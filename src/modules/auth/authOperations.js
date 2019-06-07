@@ -1,5 +1,6 @@
+import { normalize } from 'normalizr';
 import * as actions from './authActions';
-import Api from '../../api';
+import Api, { schemas } from '../../api';
 
 export function login(body) {
   return async function loginThunk(dispatch) {
@@ -7,9 +8,10 @@ export function login(body) {
       dispatch(actions.login.start());
 
       const result = await Api.Auth.login(body);
-      const { user, token } = result.data;
 
-      Api.Auth.setToken(token);
+      const user = normalize(result.data.user, schemas.user);
+
+      Api.Auth.setToken(result.data.token);
 
       dispatch(actions.login.success(user));
     } catch (err) {
@@ -25,9 +27,9 @@ export function register(body) {
       dispatch(actions.register.start());
 
       const result = await Api.Auth.register(body);
-      const { user, token } = result.data;
+      const user = normalize(result.data.user, schemas.user);
 
-      Api.Auth.setToken(token);
+      Api.Auth.setToken(result.data.token);
 
       dispatch(actions.register.success(user));
     } catch (err) {

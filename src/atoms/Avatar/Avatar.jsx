@@ -2,25 +2,31 @@ import React from 'react';
 import T from 'prop-types';
 import s from './Avatar.module.scss';
 
-function Avatar({ viewer }) {
-  const name = viewer.fullName.split(' ');
+function Avatar({ profile }) {
+  const nameArr = profile.fullName.split(' ');
+  const initials = `${
+    nameArr.length >= 2
+      ? `${nameArr[0].charAt(0)}${nameArr[1].charAt(0)}`
+      : nameArr[0].charAt(0)
+  }`;
+
   return (
-    <div className={s.container}>
-      <h3 className={s.name}>
-        {`${
-          name.length >= 2
-            ? `${name[0].charAt(0)}${name[1].charAt(0)}`
-            : name[0].charAt(0)
-        }`}
-      </h3>
+    <div
+      className={s.container}
+      style={profile.styles}
+      title={profile.fullName}
+    >
+      {profile.avatar ? (
+        <img src="profile.avatar" alt="profile.fullName" />
+      ) : (
+        initials
+      )}
     </div>
   );
 }
 
 Avatar.propTypes = {
-  viewer: T.object.isRequired,
+  profile: T.object.isRequired,
 };
-
-Avatar.defaultProps = {};
 
 export default Avatar;

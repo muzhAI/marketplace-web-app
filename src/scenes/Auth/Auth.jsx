@@ -3,6 +3,7 @@ import T from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Header, Footer } from '../../components';
+import { SellLink } from '../components';
 import { routes } from '../router';
 import Login from '../Login/LoginContainer';
 import Register from '../Register/RegisterContainer';
@@ -10,7 +11,9 @@ import Register from '../Register/RegisterContainer';
 function Auth({ viewer }) {
   return (
     <>
-      <Header light />
+      <Header light>
+        <SellLink />
+      </Header>
       <div className="main">
         <Switch>
           {viewer && <Redirect to={routes.home} />}
@@ -25,7 +28,7 @@ function Auth({ viewer }) {
 }
 
 Auth.propTypes = {
-  viewer: T.object,
+  viewer: T.string,
 };
 
 Auth.defaultProps = {

@@ -1,13 +1,13 @@
 import React from 'react';
 import T from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import { routes } from '../router';
-import { Button, Input } from '../../atoms';
+import { Button, FormInput } from '../../atoms';
+import s from './Register.module.scss';
+import { registerSchema } from '../../utils/validationSchemas';
 
-import s from './RegisterView.module.scss';
-
-function RegisterView({
+function Register({
   handleRegister,
   isLoading,
   handlePasswordToggle,
@@ -18,70 +18,73 @@ function RegisterView({
       <div className={s.registerBox}>
         <h3 className={s.registerBox__title}>Register</h3>
         <Formik
+          validationSchema={registerSchema}
           initialValues={{
             email: '',
-            password: '',
-            // passwordAgain: '',
             fullName: '',
+            password: '',
+            passwordAgain: '',
           }}
           onSubmit={(body) => {
-            handleRegister(body);
+            const request = {
+              email: body.email.trim(),
+              fullName: body.fullName.trim(),
+              password: body.password,
+            };
+            handleRegister(request);
           }}
         >
-          {(props) => (
+          {() => (
             <Form className={s.form}>
+              <Field
+                primaryClass="authInput"
+                label="email"
+                name="email"
+                placeholder="Example@gmail.com"
+                type="mail"
+                autoComplete="off"
+                component={FormInput}
+              />
+              <Field
+                primaryClass="authInput"
+                label="full name"
+                autoComplete="off"
+                name="fullName"
+                type="text"
+                component={FormInput}
+              />
               <div className={s.container}>
-                <Input
-                  onChange={props.handleChange}
-                  label="email"
-                  name="email"
-                  placeholder="Example@gmail.com"
-                  type="mail"
-                  autoComplete="off"
-                />
-              </div>
-              <div className={s.container}>
-                <Input
-                  onChange={props.handleChange}
-                  label="full name"
-                  autoComplete="off"
-                  name="fullName"
-                  type="text"
-                />
-              </div>
-              <div className={s.container}>
-                <Input
-                  onChange={props.handleChange}
+                <Field
+                  primaryClass="authInput"
                   label="password"
                   name="password"
                   type={isPasswordVisible ? 'text' : 'password'}
+                  component={FormInput}
                 />
                 <img
                   src="/images/icons/eye.svg"
                   onClick={handlePasswordToggle}
-                  className={s.eye}
+                  className={s.eyeIcon}
                   alt="eye"
                 />
               </div>
               <div className={s.container}>
-                <Input
-                  onChange={props.handleChange}
+                <Field
+                  primaryClass="authInput"
                   label="password again"
                   name="passwordAgain"
                   type={isPasswordVisible ? 'text' : 'password'}
+                  component={FormInput}
                 />
                 <img
                   src="/images/icons/eye.svg"
                   onClick={handlePasswordToggle}
-                  className={s.eye}
+                  className={s.eyeIcon}
                   alt="eye"
                 />
               </div>
-              <Button
-                onSubmit={props.handleSubmit}
-                outerClass="auth-btn"
-                type="submit"
-              >
+              <div className={s.btnWrap} />
+              <Button primaryClass="primary-btn" type="submit">
                 {isLoading ? 'Loading...' : 'Register'}
               </Button>
             </Form>
@@ -101,22 +104,18 @@ function RegisterView({
   );
 }
 
-RegisterView.propTypes = {
-  handleSubmit: T.func,
-  handleChange: T.func,
+Register.propTypes = {
   handleRegister: T.func,
   isLoading: T.bool,
   handlePasswordToggle: T.func,
   isPasswordVisible: T.bool,
 };
 
-RegisterView.defaultProps = {
-  handleSubmit: () => {},
-  handleChange: () => {},
+Register.defaultProps = {
   handleRegister: () => {},
   handlePasswordToggle: () => {},
   isPasswordVisible: false,
   isLoading: false,
 };
 
-export default RegisterView;
+export default Register;

@@ -1,47 +1,76 @@
+
 .container {
   position: absolute;
-  height: 100px;
-  width: 209px;
-  top: 50px;
-  right: 63px;
+  height: 150px;
+  width: 204px;
+  top: 47px;
+  right: 84px;
   background: #fff;
   z-index: 10;
   border-radius: 4px;
+  display: flex;
+  flex-direction: column;
 }
 
 .topBox {
   display: flex;
-  height: 63px;
+  height: 74px;
+  justify-content: flex-start;
+  padding: 9px 16px 10px;
+  box-sizing: border-box;
 }
+
 .avatarWrap {
-  width: 75px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 48px;
+  height: 45.5px;
+  font-size: 20px;
 }
 
 .rightBox {
   font-size: 10px;
-  line-height: 20px;
+  line-height: 16px;
   letter-spacing: 1px;
+  margin: 0 13px 0;
 }
 .name {
   color: #000;
   margin: 0;
-  margin: 8px 0 0;
 }
 
 .email {
   color: #979797;
   margin: 0;
+  font-family: inherit;
+  text-decoration: none;
 }
 
 .profile {
-letter-spacing: 1px;
-color: #349A89;
-margin: 0;
+ color: #349A89;
+ margin: 0;
 }
 
-.btn{
-  margin: 5px 15px;
+.profileLink {
+color: #349A89;
+padding: 9px 16px 15px;
+text-decoration: none;
+font-family: inherit;
+font-size: 14px;
+line-height: 18px;
+letter-spacing: 1px;
+text-transform: uppercase;
+border-bottom: 1px solid #E4E4E4;
+}
+
+.logoutBtn{
+  background: none;
+  cursor: pointer;
+  padding: 10px 10px 11px;
+  margin: 4px 6px ;
+  border: 0;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #349A89;
+  text-align: left;
 }

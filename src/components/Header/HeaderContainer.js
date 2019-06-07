@@ -1,13 +1,13 @@
 import { compose, withState, withHandlers } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import HeaderView from './HeaderView';
-import { viewerActions } from '../../modules/viewer';
+import Header from './HeaderView';
+import { viewerActions, viewerSelectors } from '../../modules/viewer';
 import Api from '../../api';
 
 function mapStateToProps(state) {
   return {
-    viewer: state.viewer.user,
+    viewer: viewerSelectors.getViewer(state),
   };
 }
 
@@ -15,7 +15,7 @@ const mapDispatchToProps = {
   logout: viewerActions.logout,
 };
 
-const enhance = compose(
+const enhancer = compose(
   withRouter,
   connect(
     mapStateToProps,
@@ -33,4 +33,4 @@ const enhance = compose(
   }),
 );
 
-export default enhance(HeaderView);
+export default enhancer(Header);

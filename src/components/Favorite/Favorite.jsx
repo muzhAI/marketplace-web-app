@@ -4,8 +4,8 @@ import s from './Favorite.module.scss';
 
 function Favorite({ light }) {
   const icon = light
-    ? '/images/icons/whiteHeart.svg'
-    : '/images/icons/blackHeart.svg';
+    ? '/images/icons/blackHeart.svg'
+    : '/images/icons/whiteHeart.svg';
   return (
     <div className={s.box}>
       <img src={icon} alt="heart" />

@@ -1,23 +1,30 @@
 import React from 'react';
 import T from 'prop-types';
+import { Link, generatePath } from 'react-router-dom';
 import s from './ViewerPopover.module.scss';
 import { Avatar } from '../../atoms';
+import { routes } from '../../scenes/router';
 
 function ViewerPopover({ viewer, handleLogout }) {
-  const { fullName, email } = viewer;
+  const { fullName, email, id } = viewer;
   return (
     <div className={s.container}>
       <div className={s.topBox}>
         <div className={s.avatarWrap}>
-          <Avatar viewer={viewer} />
+          <Avatar profile={viewer} />
         </div>
         <div className={s.rightBox}>
-          <h5 className={s.name}>{fullName}</h5>
+          <p className={s.name}>{fullName}</p>
           <p className={s.email}>{email}</p>
-          <p className={s.profile}>Profile</p>
+          <Link to={generatePath(routes.user, { id })} className={s.profile}>
+            Profile
+          </Link>
         </div>
       </div>
-      <button onClick={handleLogout} className={s.btn} type="button">
+      <Link to={routes.profile} className={s.profileLink}>
+        EDIT PROFILE
+      </Link>
+      <button onClick={handleLogout} className={s.logoutBtn} type="button">
         Logout
       </button>
     </div>

@@ -3,13 +3,13 @@ import T from 'prop-types';
 import cn from 'classnames';
 import s from './Button.module.scss';
 
-function Button({ children, onClick, outerClass, disabled, ...attrs }) {
+function Button({ children, onClick, primaryClass, disabled, ...attrs }) {
   return (
     <button
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className={cn(s.btn, s[outerClass])}
+      className={cn(s.btn, s[primaryClass])}
       {...attrs}
     >
       {children}
@@ -18,15 +18,15 @@ function Button({ children, onClick, outerClass, disabled, ...attrs }) {
 }
 
 Button.propTypes = {
-  children: T.node,
+  children: T.oneOfType([T.node, T.array]),
   onClick: T.func,
-  outerClass: T.string,
+  primaryClass: T.string,
   disabled: T.bool,
 };
 Button.defaultProps = {
   children: 'Button',
   onClick: () => {},
-  outerClass: '',
+  primaryClass: '',
   disabled: false,
 };
 

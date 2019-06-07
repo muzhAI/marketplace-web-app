@@ -25,7 +25,7 @@ export default handleActions(
     )]: (state, action) => ({
       ...state,
       fetchViewer: { ...state.fetchViewer, isLoading: false },
-      user: action.payload,
+      user: action.payload.result,
     }),
     [actions.fetchViewer.error]: (state, action) => ({
       ...state,

@@ -1,17 +1,17 @@
 import React from 'react';
 import T from 'prop-types';
 import { Link } from 'react-router-dom';
-import s from './HeaderView.module.scss';
+import s from './Header.module.scss';
 import { routes } from '../../scenes/router';
-import { Logo, Button, Avatar } from '../../atoms';
+import { Logo, Avatar } from '../../atoms';
 import Favorite from '../Favorite/Favorite';
 import ViewerPopover from '../ViewerPopover/ViewerPopover';
 
-function HeaderView({
+function Header({
   viewer,
   light,
   children,
-  location: { pathname },
+  location,
   handleLogout,
   handlePopoverToggle,
   isPopoverVisible,
@@ -22,41 +22,39 @@ function HeaderView({
   return (
     <header style={headerColor} className={s.header}>
       <div className={s.container}>
-        <div className={s.topLine}>
-          <Logo light={light} path={pathname} />
-          <div className={s.wrap}>
-            <Button outerClass="sell-btn">SELL</Button>
-            {viewer ? (
-              <div onClick={handlePopoverToggle}>
-                <Avatar viewer={viewer} />
-                {isPopoverVisible && (
-                  <ViewerPopover viewer={viewer} handleLogout={handleLogout} />
-                )}
-              </div>
-            ) : (
-              <Link className={s.authLink} to={routes.login}>
-                LOGIN
-              </Link>
-            )}
-            <Favorite light={light} />
-          </div>
+        <Logo light={light} path={location.pathname} />
+        <div className={s.childrenContainer}>{children}</div>
+        <div className={s.rightContainer}>
+          {viewer ? (
+            <div onClick={handlePopoverToggle} className={s.avatarWrap}>
+              <Avatar profile={viewer} />
+              {isPopoverVisible && (
+                <ViewerPopover viewer={viewer} handleLogout={handleLogout} />
+              )}
+            </div>
+          ) : (
+            <Link className={s.authLink} to={routes.login}>
+              LOGIN
+            </Link>
+          )}
+          <Favorite light={light} />
         </div>
-        {children}
       </div>
     </header>
   );
 }
 
-HeaderView.propTypes = {
+Header.propTypes = {
   light: T.bool,
-  children: T.element,
+  children: T.oneOfType([T.element, T.array]),
   handleLogout: T.func,
   viewer: T.object,
   handlePopoverToggle: T.func,
   isPopoverVisible: T.bool,
+  location: T.object.isRequired,
 };
 
-HeaderView.defaultProps = {
+Header.defaultProps = {
   light: false,
   children: null,
   handlePopoverToggle: () => {},
@@ -65,4 +63,4 @@ HeaderView.defaultProps = {
   viewer: null,
 };
 
-export default HeaderView;
+export default Header;

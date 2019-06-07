@@ -1,12 +1,13 @@
 import React from 'react';
 import T from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import s from './Login.module.scss';
 import { routes } from '../router';
-import { Button, Input } from '../../atoms';
+import { Button, FormInput } from '../../atoms';
+import { loginSchema } from '../../utils/validationSchemas';
 
-function LoginView({
+function Login({
   handleLogin,
   isLoading,
   handlePasswordToggle,
@@ -17,46 +18,43 @@ function LoginView({
       <div className={s.loginBox}>
         <h3 className={s.loginBox__title}>Login</h3>
         <Formik
+          validationSchema={loginSchema}
           initialValues={{ email: '', password: '' }}
           onSubmit={(body) => {
             handleLogin(body);
           }}
         >
-          {(props) => (
+          {() => (
             <Form className={s.form}>
+              <Field
+                primaryClass="authInput"
+                label="EMAIL"
+                name="email"
+                placeholder="Example@gmail.com"
+                type="mail"
+                component={FormInput}
+              />
               <div className={s.container}>
-                <Input
-                  onChange={props.handleChange('email')}
-                  label="EMAIL"
-                  name="email"
-                  placeholder="Example@gmail.com"
-                  autoComplete="off"
-                  type="mail"
-                />
-              </div>
-              <div className={s.container}>
-                <Input
-                  onChange={props.handleChange('password')}
+                <Field
+                  primaryClass="authInput"
                   label="PASSWORD"
                   name="password"
                   type={isPasswordVisible ? 'text' : 'password'}
+                  component={FormInput}
                 />
                 <img
                   src="/images/icons/eye.svg"
                   onClick={handlePasswordToggle}
-                  className={s.eye}
+                  className={s.eyeIcon}
                   alt="eye"
                 />
                 <p className={s.passRecoverLink}>Don't remember password?</p>
               </div>
-
-              <Button
-                outerClass="auth-btn"
-                type="submit"
-                onSubmit={props.handleSubmit}
-              >
-                {isLoading ? 'Loading...' : 'Continue'}
-              </Button>
+              <div className={s.btnWrap}>
+                <Button primaryClass="primary-btn" type="submit">
+                  {isLoading ? 'Loading...' : 'Continue'}
+                </Button>
+              </div>
             </Form>
           )}
         </Formik>
@@ -74,22 +72,18 @@ function LoginView({
   );
 }
 
-LoginView.propTypes = {
-  handleSubmit: T.func,
-  handleChange: T.func,
+Login.propTypes = {
   handleLogin: T.func,
   isLoading: T.bool,
   handlePasswordToggle: T.func,
   isPasswordVisible: T.bool,
 };
 
-LoginView.defaultProps = {
-  handleSubmit: () => {},
-  handleChange: () => {},
+Login.defaultProps = {
   handleLogin: () => {},
   handlePasswordToggle: () => {},
   isPasswordVisible: false,
   isLoading: false,
 };
 
-export default LoginView;
+export default Login;

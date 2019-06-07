@@ -1,7 +1,7 @@
 import { compose, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import LoginView from './LoginView';
+import Login from './LoginView';
 import { authOperations } from '../../modules/auth';
 import { routes } from '../router';
 
@@ -15,7 +15,7 @@ const mapDispatchToProps = {
   login: authOperations.login,
 };
 
-const enhance = compose(
+const enhancer = compose(
   withRouter,
   connect(
     mapStateToProps,
@@ -26,15 +26,16 @@ const enhance = compose(
     handlePasswordToggle: ({ passwordToggle, isPasswordVisible }) => () => {
       passwordToggle(!isPasswordVisible);
     },
-    handleLogin: (props) => async (body) => {
+    handleLogin: ({ login, history }) => async (body) => {
       try {
-        await props.login(body);
-        props.history.push(routes.home);
+        await login(body);
+        history.push(routes.home);
       } catch (err) {
         throw err;
       }
+      // TODO: handle errors
     },
   }),
 );
 
-export default enhance(LoginView);
+export default enhancer(Login);

@@ -1,5 +1,5 @@
 .formWrapper {
-  max-width: 425px;
+  width: 425px;
   margin: 0 auto;
   padding: 78px 0 50px;
 }
@@ -48,7 +48,7 @@
   }
 }
 
-.eye {
+.eyeIcon {
   position: absolute;
   height: 14px;
   width: 23px;
@@ -61,5 +61,8 @@
 
 .container {
   position: relative;
-  margin: 0 0 15px;
+}
+
+.btnWrap {
+  padding: 16px 0 0;
 }
