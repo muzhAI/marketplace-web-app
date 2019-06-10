@@ -58,7 +58,7 @@ export function fetchSeller(id) {
       dispatch(actions.fetchSeller.start());
 
       const result = await Api.Products.getSeller(id);
-      const data = normalize(result.data, schemas.user);
+      const data = normalize(colorSetter(result.data), schemas.user);
 
       dispatch(actions.fetchSeller.success(data));
     } catch (err) {

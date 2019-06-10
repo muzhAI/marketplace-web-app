@@ -5,12 +5,7 @@ export function colorSetter(data) {
     luminosity: 'dark',
     hue: 'random',
   });
-  const color = randomColor({
-    luminosity: 'light',
-    hue: 'random',
-  });
-  const styles = { background, color };
-  // TODO: add better colors
+  const styles = { background };
   if (data.hasOwnProperty('owner')) {
     return {
       ...data,

@@ -28,7 +28,7 @@ function Auth({ viewer }) {
 }
 
 Auth.propTypes = {
-  viewer: T.string,
+  viewer: T.object,
 };
 
 Auth.defaultProps = {

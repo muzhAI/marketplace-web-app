@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Header, Footer, SearchBox } from '../../components';
 import { routes } from '../router';
-import { SellLink } from '../components';
+import { SellLink, ChatsLink } from '../components';
 import s from './Home.module.scss';
 import LatestList from '../LatestList/LatestListContainer';
 import Product from '../Product/ProductContainer';
@@ -13,6 +13,7 @@ function Home() {
   return (
     <>
       <Header light={false}>
+        <ChatsLink />
         <SellLink />
         <SearchBox />
       </Header>

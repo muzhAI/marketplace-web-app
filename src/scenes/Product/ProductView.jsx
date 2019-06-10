@@ -1,9 +1,13 @@
 import React from 'react';
 import T from 'prop-types';
 import { Link, generatePath } from 'react-router-dom';
+import Modal from 'react-modal';
 import s from './Product.module.scss';
 import { routes } from '../router';
 import { Avatar, Button } from '../../atoms';
+import ContactSellerModal from '../ContactSellerModal/ContactSellerModalContainer';
+
+Modal.setAppElement('#root');
 
 function Product({
   product,
@@ -11,6 +15,8 @@ function Product({
   isLoading,
   owner,
   imageErrorHandler,
+  toggleModal,
+  isModalOpen,
 }) {
   const shouldShowingLoading = isLoading || !owner;
   if (!product) {
@@ -87,10 +93,26 @@ function Product({
           </div>
         )}
         <div className={s.button}>
-          <Button primaryClass="primary-btn" type="button">
+          <Button
+            primaryClass="primary-btn"
+            onClick={toggleModal}
+            type="button"
+          >
             CHAT WITH SELLER
           </Button>
         </div>
+        <Modal
+          overlayClassName={s.modalOverlay}
+          className={s.modal}
+          isOpen={isModalOpen}
+          onRequestClose={toggleModal}
+        >
+          <ContactSellerModal
+            product={product}
+            owner={owner}
+            closeModal={toggleModal}
+          />
+        </Modal>
         <Button primaryClass="favorite-btn" type="button">
           <>
             <img

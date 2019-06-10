@@ -3,7 +3,8 @@ import T from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import { routes } from '../router';
-import { Button, FormInput } from '../../atoms';
+import { Button } from '../../atoms';
+import { FormInput } from '../components';
 import s from './Register.module.scss';
 import { registerSchema } from '../../utils/validationSchemas';
 

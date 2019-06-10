@@ -1,6 +1,6 @@
-import { normalize } from 'normalizr';
 import * as actions from './authActions';
-import Api, { schemas } from '../../api';
+import Api from '../../api';
+import { colorSetter } from '../../utils/avatarsColorSetter';
 
 export function login(body) {
   return async function loginThunk(dispatch) {
@@ -8,12 +8,12 @@ export function login(body) {
       dispatch(actions.login.start());
 
       const result = await Api.Auth.login(body);
+      const { user, token } = result.data;
+      const viewer = colorSetter(user);
 
-      const user = normalize(result.data.user, schemas.user);
+      Api.Auth.setToken(token);
 
-      Api.Auth.setToken(result.data.token);
-
-      dispatch(actions.login.success(user));
+      dispatch(actions.login.success(viewer));
     } catch (err) {
       dispatch(actions.login.error({ message: err.message }));
       throw err;
@@ -27,11 +27,12 @@ export function register(body) {
       dispatch(actions.register.start());
 
       const result = await Api.Auth.register(body);
-      const user = normalize(result.data.user, schemas.user);
+      const { user, token } = result.data;
+      const viewer = colorSetter(user);
 
-      Api.Auth.setToken(result.data.token);
+      Api.Auth.setToken(token);
 
-      dispatch(actions.register.success(user));
+      dispatch(actions.register.success(viewer));
     } catch (err) {
       dispatch(actions.register.error({ message: err.message }));
       throw err;

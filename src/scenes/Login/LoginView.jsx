@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import s from './Login.module.scss';
 import { routes } from '../router';
-import { Button, FormInput } from '../../atoms';
+import { Button } from '../../atoms';
+import { FormInput } from '../components';
 import { loginSchema } from '../../utils/validationSchemas';
 
 function Login({

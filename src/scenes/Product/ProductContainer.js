@@ -1,4 +1,4 @@
-import { compose, lifecycle, withState, withHandlers } from 'recompose';
+import { compose, lifecycle, withStateHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Product from './ProductView';
@@ -22,17 +22,25 @@ const enhancer = compose(
     mapStateToProps,
     mapDispatchToProps,
   ),
+  withStateHandlers(
+    {
+      isImageError: false,
+      isModalOpen: false,
+    },
+    {
+      imageErrorHandler: () => () => ({
+        isImageError: true,
+      }),
+      toggleModal: ({ isModalOpen }) => () => ({
+        isModalOpen: !isModalOpen,
+      }),
+    },
+  ),
   lifecycle({
     componentDidMount() {
       if (!this.props.owner || !this.props.product) {
         this.props.fetchProduct(this.props.match.params.id);
       }
-    },
-  }),
-  withState('isImageError', 'imageToggle', false),
-  withHandlers({
-    imageErrorHandler: ({ imageToggle }) => () => {
-      imageToggle(true);
     },
   }),
 );

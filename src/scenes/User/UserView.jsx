@@ -4,7 +4,7 @@ import s from './User.module.scss';
 import { Avatar } from '../../atoms';
 import { ProductsContainer } from '../../components';
 
-function User({ seller, sellerFetching, products }) {
+function User({ seller, sellerFetching, products, productsFetching }) {
   return (
     <div className={s.container}>
       {!seller || sellerFetching ? (
@@ -34,7 +34,11 @@ function User({ seller, sellerFetching, products }) {
           </div>
         </div>
       </div>
-      <ProductsContainer products={products} />
+      {productsFetching ? (
+        'Loading...'
+      ) : (
+        <ProductsContainer products={products} />
+      )}
     </div>
   );
 }

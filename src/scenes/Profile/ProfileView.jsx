@@ -1,7 +1,8 @@
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import { Header } from '../../components';
-import { Button, Avatar, FormInput } from '../../atoms';
+import { Button, Avatar } from '../../atoms';
+import { FormInput } from '../components';
 import s from './Profile.module.scss';
 
 export default function Profile({ viewer }) {

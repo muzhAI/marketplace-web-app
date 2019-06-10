@@ -5,7 +5,7 @@ import NotFound from './NotFound/NotFound';
 import Auth from './Auth/Auth';
 import Privacy from './Privacy/Privacy';
 import Terms from './Terms/Terms';
-import Inbox from './Inbox/Inbox';
+import Inbox from './Inbox/InboxContainer';
 import Bookmarks from './Bookmarks/Bookmarks';
 import Profile from './Profile/ProfileContainer';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
@@ -25,7 +25,8 @@ export const routes = {
   search: '/search',
   user: '/users/:id',
   product: '/products/:id',
-  addProduct: '/products/add',
+  chat: '/inbox/:id',
+  addProduct: '/products/new',
 };
 
 class ModalSwitch extends Component {
@@ -66,10 +67,7 @@ class ModalSwitch extends Component {
           <Route component={NotFound} />
         </Switch>
         {isModal ? (
-          <PrivateRoute
-            path={routes.AddProductModal}
-            component={AddProductModal}
-          />
+          <PrivateRoute path={routes.AddProduct} component={AddProductModal} />
         ) : null}
       </>
     );

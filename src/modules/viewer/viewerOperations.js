@@ -1,6 +1,5 @@
-import { normalize } from 'normalizr';
 import * as actions from './viewerActions';
-import Api, { schemas } from '../../api';
+import Api from '../../api';
 import { colorSetter } from '../../utils/avatarsColorSetter';
 
 export function fetchViewer() {
@@ -10,7 +9,7 @@ export function fetchViewer() {
 
       const result = await Api.Viewer.get();
 
-      const data = normalize(colorSetter(result.data), schemas.user);
+      const data = colorSetter(result.data);
 
       dispatch(actions.fetchViewer.success(data));
     } catch (err) {

@@ -21,7 +21,7 @@
 }
 
 .searchBox {
-  padding: 40px 0 0 0;
+  padding: 35px 0 0 0;
   height: 50px;
   max-width: 855px;
   width: 100%;
@@ -59,7 +59,8 @@
 }
 
 .location {
-  width: 198px;
+  max-width: 198px;
+  width: 100%;
   padding: 10px 10px 9px 38px;
 
   &__img {
@@ -74,8 +75,8 @@
 
 .search {
   width: 467px;
+  display: block;
   padding: 10px 10px 9px 52px;
-
   &__img {
     position: absolute;
     left: 0;

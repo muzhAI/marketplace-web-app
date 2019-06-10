@@ -2,8 +2,9 @@ import React from 'react';
 import T from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import s from './AddProductForm.module.scss';
-import { FormInput, Button } from '../../../atoms';
+import { Button } from '../../../atoms';
 import { addProductSchema } from '../../../utils/validationSchemas';
+import FormInput from '../FormInput/FormInput';
 
 function AddProductForm({
   handleAddProduct,

@@ -19,7 +19,7 @@ function Avatar({ profile }) {
       {profile.avatar ? (
         <img src="profile.avatar" alt="profile.fullName" />
       ) : (
-        initials
+        <span className={s.initials}>{initials}</span>
       )}
     </div>
   );

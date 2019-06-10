@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { SocketApi } from '.';
 
 const urls = {
   login: '/api/auth/login',
@@ -8,6 +9,7 @@ const urls = {
   latestProducts: '/api/products/latest',
   products: '/api/products',
   users: '/api/users',
+  chats: '/api/chats',
 };
 
 export const Auth = {
@@ -37,8 +39,11 @@ export const Auth = {
   init() {
     try {
       const token = window.localStorage.getItem('token');
+
       this._token = JSON.parse(token);
+
       this._storeTokenToAxios();
+      SocketApi.init(token);
     } catch (err) {
       console.error(err);
     }
@@ -96,6 +101,26 @@ export const Images = {
     return axios.post(urls.uploadImages, body, {
       headers: { ContentType: 'multipart/form-data' },
     });
+  },
+};
+
+export const Chats = {
+  createChat(productId) {
+    return axios.post(`${urls.products}/${productId}/createChat`);
+  },
+
+  fetchChats() {
+    return axios.get(urls.chats);
+  },
+};
+
+export const Messages = {
+  sendMessage(chatId, text) {
+    return axios.post(`${urls.chats}/${chatId}/messages`, { text });
+  },
+
+  fetchMessages(chatId) {
+    return axios.get(`${urls.chats}/${chatId}/messages`);
   },
 };
 

@@ -10,7 +10,7 @@ function mapStateToProps(state) {
     viewer: viewerSelectors.getViewer(state),
   };
 }
-
+// TODO: finish
 // const mapDispatchToProps = {
 // };
 

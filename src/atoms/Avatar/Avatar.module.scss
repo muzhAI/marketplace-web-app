@@ -1,13 +1,14 @@
 .container {
   height: 100%;
   width: 100%;
-  background:yellow;
+  background:maroon;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: default;
-  color: #333;
+  color: #fff;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
@@ -15,4 +16,8 @@
   height: 100%;
   width: 100%;
   border-radius: 50%;
+}
+
+.initials {
+  margin: 0 0 -2px;
 }
