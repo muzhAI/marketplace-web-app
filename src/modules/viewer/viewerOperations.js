@@ -8,7 +8,7 @@ export function fetchViewer() {
       dispatch(actions.fetchViewer.start());
 
       const result = await Api.Viewer.get();
-
+      console.log(result);
       const data = colorSetter(result.data);
 
       dispatch(actions.fetchViewer.success(data));

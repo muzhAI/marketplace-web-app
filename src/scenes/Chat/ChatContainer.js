@@ -2,11 +2,13 @@ import { compose, lifecycle, withState, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import Chat from './ChatView';
 import { messagesSelectors, messagesOperations } from '../../modules/messages';
+import { chatsSelectors } from '../../modules/chats';
 
 function mapStateToProps(state, { match }) {
   return {
     messages: messagesSelectors.getMessages(state, match.params.id),
     isLoading: state.messages.fetchMessages.isLoading,
+    chat: chatsSelectors.getChat(state, match.params.id),
   };
 }
 

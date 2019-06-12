@@ -25,15 +25,7 @@ function AddProductForm({
           price: '',
         }}
         onSubmit={(body) => {
-          const data = {
-            title: body.title,
-            location: body.location,
-            description: body.description,
-            photos: body.photos,
-            price: body.price,
-          };
-
-          handleAddProduct(data);
+          handleAddProduct(body);
         }}
       >
         {({ values, setFieldValue }) => (

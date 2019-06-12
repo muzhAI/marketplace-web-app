@@ -8,26 +8,49 @@ const INITIAL_STATE = {
     error: null,
     isError: false,
   },
+
   addProduct: {
     isLoading: false,
     error: null,
     isError: false,
   },
+
   product: {
     isLoading: false,
     error: null,
     isError: false,
   },
+
   sellerProducts: {
     isLoading: false,
     error: null,
     isError: false,
     items: [],
   },
+
   seller: {
     isLoading: false,
     error: null,
     isError: false,
+  },
+
+  saveProduct: {
+    isLoading: false,
+    error: null,
+    isError: false,
+  },
+
+  removeFromSaved: {
+    isLoading: false,
+    error: null,
+    isError: false,
+  },
+
+  savedProducts: {
+    isLoading: false,
+    error: null,
+    isError: false,
+    items: [],
   },
 };
 
@@ -155,6 +178,82 @@ export default handleActions(
       ...state,
       seller: {
         ...state.product,
+        isLoading: false,
+        error: action.payload,
+        isError: true,
+      },
+    }),
+    [actions.saveProduct.start]: (state) => ({
+      ...state,
+      saveProduct: {
+        ...state.saveProduct,
+        isLoading: true,
+        error: null,
+        isError: false,
+      },
+    }),
+    [actions.saveProduct.success]: (state) => ({
+      ...state,
+      saveProduct: {
+        ...state.saveProduct,
+        isLoading: false,
+      },
+    }),
+    [actions.saveProduct.error]: (state, action) => ({
+      ...state,
+      saveProduct: {
+        ...state.saveProduct,
+        isLoading: false,
+        error: action.payload,
+        isError: true,
+      },
+    }),
+    [actions.removeFromSaved.start]: (state) => ({
+      ...state,
+      removeFromSaved: {
+        ...state.removeFromSaved,
+        isLoading: true,
+        error: null,
+        isError: false,
+      },
+    }),
+    [actions.removeFromSaved.success]: (state) => ({
+      ...state,
+      removeFromSaved: {
+        ...state.removeFromSaved,
+        isLoading: false,
+      },
+    }),
+    [actions.removeFromSaved.error]: (state, action) => ({
+      ...state,
+      removeFromSaved: {
+        ...state.removeFromSaved,
+        isLoading: false,
+        error: action.payload,
+        isError: true,
+      },
+    }),
+    [actions.fetchSaved.start]: (state) => ({
+      ...state,
+      savedProducts: {
+        ...state.savedProducts,
+        isLoading: true,
+        error: null,
+        isError: false,
+      },
+    }),
+    [actions.fetchSaved.success]: (state, action) => ({
+      ...state,
+      savedProducts: {
+        ...state.savedProducts,
+        isLoading: false,
+        items: action.payload.result,
+      },
+    }),
+    [actions.fetchSaved.error]: (state, action) => ({
+      ...state,
+      savedProducts: {
+        ...state.savedProducts,
         isLoading: false,
         error: action.payload,
         isError: true,

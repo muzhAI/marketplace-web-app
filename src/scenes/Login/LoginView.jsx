@@ -7,22 +7,29 @@ import { routes } from '../router';
 import { Button } from '../../atoms';
 import { FormInput } from '../components';
 import { loginSchema } from '../../utils/validationSchemas';
+import { setErrorMessage } from '../../utils/ServerErrorHandler';
 
 function Login({
   handleLogin,
   isLoading,
   handlePasswordToggle,
   isPasswordVisible,
+  error,
+  showError,
+  errorToggle,
 }) {
   return (
     <div className={s.formWrapper}>
       <div className={s.loginBox}>
         <h3 className={s.loginBox__title}>Login</h3>
+        <div className={s.error}>
+          {error && showError && setErrorMessage(error)}
+        </div>
         <Formik
           validationSchema={loginSchema}
           initialValues={{ email: '', password: '' }}
-          onSubmit={(body) => {
-            handleLogin(body);
+          onSubmit={async (body) => {
+            await handleLogin(body);
           }}
         >
           {() => (
@@ -31,6 +38,7 @@ function Login({
                 primaryClass="authInput"
                 label="EMAIL"
                 name="email"
+                onFocus={() => errorToggle(false)}
                 placeholder="Example@gmail.com"
                 type="mail"
                 component={FormInput}
@@ -40,6 +48,7 @@ function Login({
                   primaryClass="authInput"
                   label="PASSWORD"
                   name="password"
+                  onFocus={() => errorToggle(false)}
                   type={isPasswordVisible ? 'text' : 'password'}
                   component={FormInput}
                 />
@@ -49,9 +58,11 @@ function Login({
                   className={s.eyeIcon}
                   alt="eye"
                 />
-                <p className={s.passRecoverLink}>Don't remember password?</p>
               </div>
               <div className={s.btnWrap}>
+                <Link to={routes.passwordRestore} className={s.passRecoverLink}>
+                  Don't remember password?
+                </Link>
                 <Button primaryClass="primary-btn" type="submit">
                   {isLoading ? 'Loading...' : 'Continue'}
                 </Button>
@@ -78,6 +89,9 @@ Login.propTypes = {
   isLoading: T.bool,
   handlePasswordToggle: T.func,
   isPasswordVisible: T.bool,
+  error: T.object,
+  showError: T.bool,
+  errorToggle: T.func,
 };
 
 Login.defaultProps = {
@@ -85,6 +99,9 @@ Login.defaultProps = {
   handlePasswordToggle: () => {},
   isPasswordVisible: false,
   isLoading: false,
+  error: null,
+  showError: false,
+  errorToggle: () => {},
 };
 
 export default Login;

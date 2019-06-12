@@ -1,6 +1,6 @@
 import { compose, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, generatePath } from 'react-router-dom';
 import { routes } from '../../router';
 import { productsOperations } from '../../../modules/products';
 import AddProductForm from './AddProductFormView';
@@ -25,9 +25,16 @@ const enhancer = compose(
   withState('isImageLoading', 'imageLoadingHandler', false),
   withHandlers({
     handleAddProduct: ({ addProduct, history }) => async (body) => {
+      const data = {
+        title: body.title.trim(),
+        location: body.location.trim(),
+        description: body.location.trim() && 'no description', // bug on server
+        photos: body.photos,
+        price: body.price.trim(),
+      };
       try {
-        await addProduct(body);
-        history.push(routes.home);
+        const resp = await addProduct(data);
+        history.push(generatePath(routes.product, { id: resp.result }));
       } catch (err) {
         throw err;
       }
@@ -43,7 +50,6 @@ const enhancer = compose(
         return result.data;
       } catch (error) {
         imageLoadingHandler(false);
-        // TODO: error handler
       }
     },
   }),

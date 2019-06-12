@@ -61,12 +61,14 @@
 }
 
 .passRecoverLink {
-  margin: -9px 0 0;
+  position: absolute;
+  top: -6px;
+  right: 2px;
   font-size: 14px;
   line-height: 16px;
-  text-align: right;
   letter-spacing: 0.4px;
   color: #8C8C8C;
+  text-decoration: none;
 }
 
 .container {
@@ -74,5 +76,14 @@
 }
 
 .btnWrap {
-  padding: 16px 0 0;
+  position: relative;
+  padding: 25px 0 0;
+}
+
+.error {
+  color: #ff0037;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 5px 0 8px ;
+  text-align: center;
 }

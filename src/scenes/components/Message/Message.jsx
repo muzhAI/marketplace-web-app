@@ -1,14 +1,23 @@
 import React from 'react';
 import T from 'prop-types';
-import cn from 'classnames';
 import s from './Message.module.scss';
 
 function Message({ message, sended }) {
-  const { text, ownerId, createdAt } = message;
-  const messageStyle = sended ? 'sended' : 'received';
+  const { text } = message;
+  if (sended) {
+    return (
+      <div className={s.sendedContainer}>
+        <div className={s.sendedWrap}>
+          <p className={s.sendedMessage}>{text}</p>
+        </div>
+      </div>
+    );
+  }
   return (
-    <div className={s.container}>
-      <div className={cn(s.message, s[messageStyle])}>{text}</div>
+    <div className={s.receivedContainer}>
+      <div className={s.receivedWrap}>
+        <p className={s.receivedMessage}>{text}</p>
+      </div>
     </div>
   );
 }

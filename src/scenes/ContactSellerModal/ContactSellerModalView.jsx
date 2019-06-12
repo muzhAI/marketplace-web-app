@@ -23,7 +23,7 @@ function ContactSellerModal({
         </div>
         <div>
           <p className={s.name}>{owner.fullName}</p>
-          <p className={s.location}>{owner.location ? owner.location : null}</p>
+          <p className={s.location}>{owner.location}</p>
         </div>
       </div>
       <div className={s.form}>
@@ -61,6 +61,7 @@ ContactSellerModal.propTypes = {
   text: T.string,
   handleChange: T.func,
   disabled: T.bool,
+  isLoading: T.bool,
 };
 
 ContactSellerModal.defaultProps = {
@@ -69,6 +70,7 @@ ContactSellerModal.defaultProps = {
   text: '',
   handleChange: () => {},
   disabled: false,
+  isLoading: false,
 };
 
 export default ContactSellerModal;

@@ -24,8 +24,12 @@ export const registerSchema = Yup.object().shape({
 });
 
 export const addProductSchema = Yup.object().shape({
-  title: Yup.string().required('Title is required'),
-  location: Yup.string().required('Location is required'),
+  title: Yup.string()
+    .trim()
+    .required('Title is required'),
+  location: Yup.string()
+    .trim()
+    .required('Location is required'),
   description: Yup.string(),
   photos: Yup.array().max(6),
   price: Yup.number(),

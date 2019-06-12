@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import T from 'prop-types';
 import { Header, Footer, SearchBox } from '../../components';
 import { routes } from '../router';
 import { SellLink, ChatsLink } from '../components';
@@ -8,19 +9,21 @@ import LatestList from '../LatestList/LatestListContainer';
 import Product from '../Product/ProductContainer';
 import User from '../User/UserContainer';
 import Search from '../Search/Search';
+import Bookmarks from '../Bookmarks/BookmarksContainer';
 
-function Home() {
+function Home({ viewer }) {
   return (
     <>
       <Header light={false}>
-        <ChatsLink />
+        {viewer && <ChatsLink />}
         <SellLink />
         <SearchBox />
       </Header>
       <div className={s.container}>
         <Switch>
           <Route exact path={routes.home} component={LatestList} />
-          <Route path={routes.product} component={Product} />
+          <Route exact path={routes.product} component={Product} />
+          <Route exact path={routes.bookmarks} component={Bookmarks} />
           <Route path={routes.user} component={User} />
           <Route path={routes.search} component={Search} />
         </Switch>
@@ -29,5 +32,13 @@ function Home() {
     </>
   );
 }
+
+Home.propTypes = {
+  viewer: T.object,
+};
+
+Home.defaultProps = {
+  viewer: false,
+};
 
 export default Home;

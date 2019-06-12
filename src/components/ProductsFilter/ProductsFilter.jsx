@@ -1,5 +1,4 @@
 import React from 'react';
-import T from 'prop-types';
 import s from './ProductsFilter.module.scss';
 
 function ProductsFilter() {
@@ -15,9 +14,5 @@ function ProductsFilter() {
     </div>
   );
 }
-
-ProductsFilter.propTypes = {};
-
-ProductsFilter.defaultProps = {};
 
 export default ProductsFilter;

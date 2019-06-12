@@ -7,6 +7,7 @@ import { SellLink } from '../components';
 import { routes } from '../router';
 import Login from '../Login/LoginContainer';
 import Register from '../Register/RegisterContainer';
+import PasswordRestore from '../PasswordRestore/PasswordRestoreContainer';
 
 function Auth({ viewer }) {
   return (
@@ -19,6 +20,7 @@ function Auth({ viewer }) {
           {viewer && <Redirect to={routes.home} />}
           <Route path={routes.login} component={Login} exact />
           <Route path={routes.register} component={Register} exact />
+          <Route path={routes.recover} component={PasswordRestore} exact />
           <Redirect from={routes.auth} to={routes.login} />
         </Switch>
       </div>

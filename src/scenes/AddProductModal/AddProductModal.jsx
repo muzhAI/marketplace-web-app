@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import T from 'prop-types';
 import s from './AddProductModal.module.scss';
 import { AddProductForm } from '../components';
 

@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import React, { Component } from 'react';
-import Home from './Home/Home';
+import Home from './Home/HomeContainer';
 import NotFound from './NotFound/NotFound';
 import Auth from './Auth/Auth';
 import Privacy from './Privacy/Privacy';
 import Terms from './Terms/Terms';
 import Inbox from './Inbox/InboxContainer';
-import Bookmarks from './Bookmarks/Bookmarks';
+import Bookmarks from './Bookmarks/BookmarksView';
 import Profile from './Profile/ProfileContainer';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import AddProduct from './AddProduct/AddProduct';
@@ -17,6 +17,7 @@ export const routes = {
   auth: '/auth',
   login: '/auth/login',
   register: '/auth/register',
+  passwordRestore: '/auth/recover',
   terms: '/terms',
   privacy: '/privacy',
   inbox: '/inbox',
@@ -26,7 +27,7 @@ export const routes = {
   user: '/users/:id',
   product: '/products/:id',
   chat: '/inbox/:id',
-  addProduct: '/products/new',
+  addProduct: '/product/new',
 };
 
 class ModalSwitch extends Component {
@@ -54,7 +55,7 @@ class ModalSwitch extends Component {
         <Switch location={isModal ? this.previousLocation : location}>
           <Route
             exact
-            path="/(users/.+|products/.+|search)?"
+            path="/(users/.+|products/.+|search/.+|bookmarks)?"
             component={Home}
           />
           <Route path={routes.auth} component={Auth} />

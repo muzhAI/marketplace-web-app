@@ -13,6 +13,7 @@ function LatestList({ list, isLoading }) {
 
 LatestList.propTypes = {
   isLoading: T.bool,
+  list: T.array.isRequired,
 };
 
 LatestList.defaultProps = {

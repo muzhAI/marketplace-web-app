@@ -43,7 +43,8 @@ export const Auth = {
       this._token = JSON.parse(token);
 
       this._storeTokenToAxios();
-      SocketApi.init(token);
+
+      SocketApi.init(this._token);
     } catch (err) {
       console.error(err);
     }
@@ -93,6 +94,18 @@ export const Products = {
 
   getSeller(id) {
     return axios.get(`${urls.users}/${id}`);
+  },
+
+  removeFromSaved(productId) {
+    return axios.post(`${urls.products}/${productId}/unsave`);
+  },
+
+  saveProduct(productId) {
+    return axios.post(`${urls.products}/${productId}/save`);
+  },
+
+  fetchSaved() {
+    return axios.get(`${urls.products}/saved`);
   },
 };
 

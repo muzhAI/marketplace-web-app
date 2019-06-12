@@ -8,6 +8,7 @@ import { routes } from '../router';
 function mapStateToProps(state) {
   return {
     isLoading: state.auth.login.isLoading,
+    error: state.auth.login.error,
   };
 }
 
@@ -22,18 +23,28 @@ const enhancer = compose(
     mapDispatchToProps,
   ),
   withState('isPasswordVisible', 'passwordToggle', false),
+  withState('showError', 'errorHandler', false),
   withHandlers({
+    errorToggle: ({ errorHandler }) => (value) => {
+      errorHandler(value);
+    },
     handlePasswordToggle: ({ passwordToggle, isPasswordVisible }) => () => {
       passwordToggle(!isPasswordVisible);
     },
-    handleLogin: ({ login, history }) => async (body) => {
+    handleLogin: ({ login, history, location, errorHandler }) => async (
+      body,
+    ) => {
       try {
         await login(body);
-        history.push(routes.home);
+        if (location.state === 'product') {
+          history.goBack();
+        } else {
+          history.push(routes.home);
+        }
       } catch (err) {
+        errorHandler(true);
         throw err;
       }
-      // TODO: handle errors
     },
   }),
 );

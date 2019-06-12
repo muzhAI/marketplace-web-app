@@ -4,8 +4,9 @@ import { Link, generatePath } from 'react-router-dom';
 import Modal from 'react-modal';
 import s from './Product.module.scss';
 import { routes } from '../router';
-import { Avatar, Button } from '../../atoms';
+import { Avatar, Button, HeartIcon } from '../../atoms';
 import ContactSellerModal from '../ContactSellerModal/ContactSellerModalContainer';
+import { SecureModal } from '../components';
 
 Modal.setAppElement('#root');
 
@@ -17,6 +18,8 @@ function Product({
   imageErrorHandler,
   toggleModal,
   isModalOpen,
+  viewer,
+  saveHandler,
 }) {
   const shouldShowingLoading = isLoading || !owner;
   if (!product) {
@@ -105,21 +108,26 @@ function Product({
           overlayClassName={s.modalOverlay}
           className={s.modal}
           isOpen={isModalOpen}
-          onRequestClose={toggleModal}
         >
-          <ContactSellerModal
-            product={product}
-            owner={owner}
-            closeModal={toggleModal}
-          />
-        </Modal>
-        <Button primaryClass="favorite-btn" type="button">
-          <>
-            <img
-              className={s.heartIcon}
-              src="/images/icons/blackHeart.svg"
-              alt=""
+          {viewer ? (
+            <ContactSellerModal
+              product={product}
+              owner={owner}
+              closeModal={toggleModal}
             />
+          ) : (
+            <SecureModal closeModal={toggleModal} />
+          )}
+        </Modal>
+        <Button primaryClass="favorite-btn" onClick={saveHandler} type="button">
+          <>
+            <div className={s.heartIcon}>
+                {product.saved ? (
+                <HeartIcon width="17" height="15" color="#349A89" painted />
+              ) : (
+                <HeartIcon width="17" height="15" color="#535353" />
+              )}
+            </div>
             ADD TO FAVORITE
           </>
         </Button>
@@ -134,14 +142,22 @@ Product.propTypes = {
   isLoading: T.bool,
   isImageError: T.bool,
   imageErrorHandler: T.func,
+  toggleModal: T.func,
+  isModalOpen: T.bool,
+  viewer: T.object,
+  saveHandler: T.func,
 };
 
 Product.defaultProps = {
   isLoading: false,
   product: null,
   owner: null,
+  isModalOpen: false,
+  viewer: null,
   isImageError: false,
   imageErrorHandler: () => {},
+  toggleModal: () => {},
+  saveHandler: () => {},
 };
 
 export default Product;

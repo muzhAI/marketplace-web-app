@@ -23,6 +23,7 @@ Button.propTypes = {
   primaryClass: T.string,
   disabled: T.bool,
 };
+
 Button.defaultProps = {
   children: 'Button',
   onClick: () => {},

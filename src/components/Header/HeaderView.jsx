@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import s from './Header.module.scss';
 import { routes } from '../../scenes/router';
 import { Logo, Avatar } from '../../atoms';
-import Favorite from '../Favorite/Favorite';
+import { Favorite } from '../../scenes/components';
 import ViewerPopover from '../ViewerPopover/ViewerPopover';
 
 function Header({
@@ -37,7 +37,7 @@ function Header({
               LOGIN
             </Link>
           )}
-          <Favorite light={light} />
+          <Favorite light={light} path={location.pathname} />
         </div>
       </div>
     </header>

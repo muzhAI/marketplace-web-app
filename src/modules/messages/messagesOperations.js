@@ -51,8 +51,21 @@ export function fetchMessages(chatId) {
   };
 }
 
-export function handleMessageRealTime(message) {
+export function handleMessageRealTime(event) {
   return async function handleMessageRealTimeThunk(dispatch) {
-    console.log(message);
+    if (event.type === 'ADD') {
+      dispatch(addMessage(event.message));
+    }
+  };
+}
+
+export function addMessage(message) {
+  return async function addMessageThunk(dispatch) {
+    dispatch(
+      actions.sendMessage.start({
+        chatId: message.chatId,
+        ...normalize(message, schemas.Message),
+      }),
+    );
   };
 }

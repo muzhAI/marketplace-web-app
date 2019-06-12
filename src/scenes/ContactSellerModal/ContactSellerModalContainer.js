@@ -40,9 +40,10 @@ const enhancer = compose(
       text = text.trim();
       event.preventDefault();
       if (!product.chatId) {
-        await createChat(product.id, text);
+        const data = await createChat(product.id, text);
+        sendMessage(data.result, text);
         setMessage('');
-        history.push(routes.inbox);
+        history.push(generatePath(routes.chat, { id: data.result }));
       } else {
         await sendMessage(product.chatId, text);
         setMessage('');

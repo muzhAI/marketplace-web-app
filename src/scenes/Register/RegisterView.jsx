@@ -7,17 +7,24 @@ import { Button } from '../../atoms';
 import { FormInput } from '../components';
 import s from './Register.module.scss';
 import { registerSchema } from '../../utils/validationSchemas';
+import { setErrorMessage } from '../../utils/ServerErrorHandler';
 
 function Register({
   handleRegister,
   isLoading,
   handlePasswordToggle,
   isPasswordVisible,
+  error,
+  showError,
+  errorToggle,
 }) {
   return (
     <div className={s.formWrapper}>
       <div className={s.registerBox}>
         <h3 className={s.registerBox__title}>Register</h3>
+        <div className={s.error}>
+          {error && showError && setErrorMessage(error)}
+        </div>
         <Formik
           validationSchema={registerSchema}
           initialValues={{
@@ -44,6 +51,7 @@ function Register({
                 placeholder="Example@gmail.com"
                 type="mail"
                 autoComplete="off"
+                onFocus={() => errorToggle(false)}
                 component={FormInput}
               />
               <Field
@@ -52,6 +60,7 @@ function Register({
                 autoComplete="off"
                 name="fullName"
                 type="text"
+                onFocus={() => errorToggle(false)}
                 component={FormInput}
               />
               <div className={s.container}>
@@ -59,6 +68,7 @@ function Register({
                   primaryClass="authInput"
                   label="password"
                   name="password"
+                  onFocus={() => errorToggle(false)}
                   type={isPasswordVisible ? 'text' : 'password'}
                   component={FormInput}
                 />
@@ -74,6 +84,7 @@ function Register({
                   primaryClass="authInput"
                   label="password again"
                   name="passwordAgain"
+                  onFocus={() => errorToggle(false)}
                   type={isPasswordVisible ? 'text' : 'password'}
                   component={FormInput}
                 />
@@ -110,6 +121,9 @@ Register.propTypes = {
   isLoading: T.bool,
   handlePasswordToggle: T.func,
   isPasswordVisible: T.bool,
+  error: T.object,
+  showError: T.bool,
+  errorToggle: T.func,
 };
 
 Register.defaultProps = {
@@ -117,6 +131,9 @@ Register.defaultProps = {
   handlePasswordToggle: () => {},
   isPasswordVisible: false,
   isLoading: false,
+  error: null,
+  showError: false,
+  errorToggle: () => {},
 };
 
 export default Register;

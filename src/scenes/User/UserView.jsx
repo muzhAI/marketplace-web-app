@@ -44,7 +44,7 @@ function User({ seller, sellerFetching, products, productsFetching }) {
 }
 
 User.propTypes = {};
-
+// TODO: add proptypes
 User.defaultProps = {};
 
 export default User;

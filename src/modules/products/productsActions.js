@@ -7,3 +7,6 @@ export const fetchSeller = createAsyncActions('products/FETCH_SELLER');
 export const fetchSellerProducts = createAsyncActions(
   'products/FETCH_SELLER_PRODUCTS',
 );
+export const saveProduct = createAsyncActions('products/SAVE_PRODUCT');
+export const removeFromSaved = createAsyncActions('products/REMOVE_FROM_SAVED');
+export const fetchSaved = createAsyncActions('products/FETCH_SAVED');

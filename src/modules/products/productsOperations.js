@@ -9,7 +9,7 @@ export function fetchLatest() {
       dispatch(actions.fetchLatest.start());
 
       const result = await Api.Products.getLatest();
-      const data = normalize(result.data, schemas.ProductList);
+      const data = normalize(result.data, schemas.Products);
 
       await dispatch(actions.fetchLatest.success(data));
     } catch (err) {
@@ -27,6 +27,8 @@ export function addProduct(body) {
       const data = normalize(result.data, schemas.Product);
 
       await dispatch(actions.addProduct.success(data));
+
+      return data;
     } catch (err) {
       dispatch(actions.addProduct.error({ message: err.message }));
       throw err;
@@ -78,6 +80,59 @@ export function fetchSellerProducts(id) {
       dispatch(actions.fetchSellerProducts.success(data));
     } catch (err) {
       dispatch(actions.fetchSellerProducts.error({ message: err.message }));
+    }
+  };
+}
+
+export function saveProduct(product) {
+  return async function saveProductThunk(dispatch) {
+    const savedProduct = {
+      ...product,
+      saved: true,
+    };
+    const data = normalize(savedProduct, schemas.Product);
+    try {
+      dispatch(actions.saveProduct.start(data));
+
+      await Api.Products.saveProduct(data.result);
+
+      dispatch(actions.saveProduct.success());
+    } catch (err) {
+      dispatch(actions.saveProduct.error(product, err.message));
+    }
+  };
+}
+
+export function removeFromSaved(product) {
+  return async function removeFromSavedThunk(dispatch) {
+    const unSavedProduct = {
+      ...product,
+      saved: false,
+    };
+    const data = normalize(unSavedProduct, schemas.Product);
+    try {
+      dispatch(actions.removeFromSaved.start(data));
+
+      await Api.Products.removeFromSaved(data.result);
+
+      dispatch(actions.removeFromSaved.success());
+    } catch (err) {
+      dispatch(actions.removeFromSaved.error(product, err.message));
+    }
+  };
+}
+
+export function fetchSaved() {
+  return async function fetchSavedThunk(dispatch) {
+    try {
+      dispatch(actions.fetchSaved.start());
+
+      const result = await Api.Products.fetchSaved();
+      const data = normalize(result.data, schemas.Products);
+
+      dispatch(actions.fetchSaved.success(data));
+    } catch (err) {
+      dispatch(actions.fetchSaved.error({ message: err.message }));
     }
   };
 }

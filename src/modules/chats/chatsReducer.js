@@ -9,7 +9,7 @@ const INITIAL_STATE = {
     isError: false,
   },
   fetchChats: {
-    isLoading: false,
+    isLoading: true,
     error: null,
     isError: false,
   },
