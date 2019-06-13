@@ -1,6 +1,6 @@
 import randomColor from 'randomcolor';
 
-export function colorSetter(data) {
+export function avatarColorSetter(data) {
   const background = randomColor({
     luminosity: 'dark',
     hue: 'random',
@@ -16,4 +16,18 @@ export function colorSetter(data) {
     ...data,
     styles,
   };
+}
+
+export function permanentAvatarColor(stateUser, propsUser) {
+  if (!stateUser) {
+    return propsUser;
+  }
+  if (stateUser.id !== propsUser.id) {
+    return propsUser;
+  }
+  const user = {
+    ...propsUser,
+    styles: stateUser.styles,
+  };
+  return user;
 }

@@ -1,13 +1,22 @@
 import React from 'react';
-// import T from 'prop-types';
-import { Link, Route, generatePath } from 'react-router-dom';
+import T from 'prop-types';
+import { Route } from 'react-router-dom';
 import s from './Inbox.module.scss';
 import { Header } from '../../components';
-import { SellLink } from '../components';
+import { SellLink, ChatCard } from '../components';
 import { routes } from '../router';
-import Chat from '../Chat/ChatContainer';
+import Chat from '../Chat/Chat';
 
 function Inbox({ chatsList, isLoading }) {
+  let chats;
+  try {
+    chats = chatsList
+      .sort((a, b) => b.lastMessage.createdAt - a.lastMessage.createdAt)
+      .map((item) => <ChatCard key={item.id} chat={item} />);
+  } catch (error) {
+    chats = chatsList.map((item) => <ChatCard key={item.id} chat={item} />);
+  }
+
   return (
     <div className={s.container}>
       <Header>
@@ -17,26 +26,7 @@ function Inbox({ chatsList, isLoading }) {
         <h2>Loading...</h2>
       ) : (
         <div className={s.chatsBox}>
-          <aside className={s.aside}>
-            {chatsList.map((chat) => (
-              <Link
-                to={generatePath(routes.chat, { id: chat.id })}
-                className={s.chatItem}
-                key={chat.id}
-              >
-                <p className={s.productName}>
-                  {chat.product && chat.product.title}
-                  <span className={s.messageTime}>
-                    {chat.lastMessage &&
-                      new Date(chat.lastMessage.createdAt).toLocaleDateString()}
-                  </span>
-                </p>
-                <p className={s.lastMessage}>
-                  {chat.lastMessage && chat.lastMessage.text}
-                </p>
-              </Link>
-            ))}
-          </aside>
+          <aside className={s.aside}>{chats}</aside>
           <div className={s.main}>
             <Route exact path={routes.chat} component={Chat} />
           </div>
@@ -46,6 +36,14 @@ function Inbox({ chatsList, isLoading }) {
   );
 }
 
-Inbox.propTypes = {};
+Inbox.propTypes = {
+  chatsList: T.array,
+  isLoading: T.bool,
+};
+
+Inbox.defaultProps = {
+  chatsList: null,
+  isLoading: false,
+};
 
 export default Inbox;

@@ -1,7 +1,7 @@
 import { normalize } from 'normalizr';
 import * as actions from './productsActions';
 import Api, { schemas } from '../../api';
-import { colorSetter } from '../../utils/avatarsColorSetter';
+import { viewerServices } from '../viewer';
 
 export function fetchLatest() {
   return async function fetchLatestThunk(dispatch) {
@@ -43,7 +43,7 @@ export function fetchProduct(id) {
 
       const result = await Api.Products.get(id);
       const data = normalize(
-        colorSetter(result.data),
+        viewerServices.avatarColorSetter(result.data),
         schemas.ProductWithOwner,
       );
 
@@ -60,7 +60,10 @@ export function fetchSeller(id) {
       dispatch(actions.fetchSeller.start());
 
       const result = await Api.Products.getSeller(id);
-      const data = normalize(colorSetter(result.data), schemas.user);
+      const data = normalize(
+        viewerServices.avatarColorSetter(result.data),
+        schemas.user,
+      );
 
       dispatch(actions.fetchSeller.success(data));
     } catch (err) {
@@ -90,15 +93,17 @@ export function saveProduct(product) {
       ...product,
       saved: true,
     };
-    const data = normalize(savedProduct, schemas.Product);
+    const newProduct = normalize(savedProduct, schemas.Product);
     try {
-      dispatch(actions.saveProduct.start(data));
+      console.log(newProduct);
+      dispatch(actions.saveProduct.start(newProduct));
 
-      await Api.Products.saveProduct(data.result);
+      await Api.Products.saveProduct(newProduct.result);
 
       dispatch(actions.saveProduct.success());
     } catch (err) {
-      dispatch(actions.saveProduct.error(product, err.message));
+      const { entities } = normalize(product, schemas.Product);
+      dispatch(actions.saveProduct.error({ entities, err }));
     }
   };
 }
@@ -109,15 +114,16 @@ export function removeFromSaved(product) {
       ...product,
       saved: false,
     };
-    const data = normalize(unSavedProduct, schemas.Product);
+    const newProduct = normalize(unSavedProduct, schemas.Product);
     try {
-      dispatch(actions.removeFromSaved.start(data));
+      dispatch(actions.removeFromSaved.start(newProduct));
 
-      await Api.Products.removeFromSaved(data.result);
+      await Api.Products.removeFromSaved(newProduct.result);
 
       dispatch(actions.removeFromSaved.success());
     } catch (err) {
-      dispatch(actions.removeFromSaved.error(product, err.message));
+      const { entities } = normalize(product, schemas.Product);
+      dispatch(actions.removeFromSaved.error({ entities, err }));
     }
   };
 }

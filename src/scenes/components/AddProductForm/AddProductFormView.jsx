@@ -70,6 +70,7 @@ function AddProductForm({
                     }}
                     id="photos"
                     accept="image/*"
+                    multiple
                     className={s.fileInput}
                   />
                   <label htmlFor="photos" className={s.fileUploadButton} />

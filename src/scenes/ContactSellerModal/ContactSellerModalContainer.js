@@ -36,6 +36,7 @@ const enhancer = compose(
       text,
       sendMessage,
       history,
+      owner,
     }) => async (event) => {
       text = text.trim();
       event.preventDefault();
@@ -43,7 +44,10 @@ const enhancer = compose(
         const data = await createChat(product.id, text);
         sendMessage(data.result, text);
         setMessage('');
-        history.push(generatePath(routes.chat, { id: data.result }));
+        history.push({
+          pathname: generatePath(routes.chat, { id: data.result }),
+          state: { participant: owner },
+        });
       } else {
         await sendMessage(product.chatId, text);
         setMessage('');

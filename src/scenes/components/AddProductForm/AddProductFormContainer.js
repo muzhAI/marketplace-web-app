@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { withRouter, generatePath } from 'react-router-dom';
 import { routes } from '../../router';
 import { productsOperations } from '../../../modules/products';
+import { viewerSelectors } from '../../../modules/viewer';
 import AddProductForm from './AddProductFormView';
 import Api from '../../../api';
 
 function mapStateToProps(state) {
   return {
     isLoading: state.products.addProduct.isLoading,
+    viewer: viewerSelectors.getViewer(state),
   };
 }
 
@@ -24,7 +26,7 @@ const enhancer = compose(
   ),
   withState('isImageLoading', 'imageLoadingHandler', false),
   withHandlers({
-    handleAddProduct: ({ addProduct, history }) => async (body) => {
+    handleAddProduct: ({ addProduct, history, viewer }) => async (body) => {
       const data = {
         title: body.title.trim(),
         location: body.location.trim(),
@@ -32,11 +34,18 @@ const enhancer = compose(
         photos: body.photos,
         price: body.price.trim(),
       };
-      try {
-        const resp = await addProduct(data);
-        history.push(generatePath(routes.product, { id: resp.result }));
-      } catch (err) {
-        throw err;
+      if (viewer) {
+        try {
+          const resp = await addProduct(data);
+          history.push(generatePath(routes.product, { id: resp.result }));
+        } catch (err) {
+          throw err;
+        }
+      } else {
+        history.push({
+          pathname: routes.register,
+          state: { product: data },
+        });
       }
     },
     handleImageLoader: ({ imageLoadingHandler }) => async (event) => {

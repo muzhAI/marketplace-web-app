@@ -204,7 +204,7 @@ export default handleActions(
       saveProduct: {
         ...state.saveProduct,
         isLoading: false,
-        error: action.payload,
+        error: action.payload.err.message,
         isError: true,
       },
     }),
@@ -229,7 +229,7 @@ export default handleActions(
       removeFromSaved: {
         ...state.removeFromSaved,
         isLoading: false,
-        error: action.payload,
+        error: action.payload.err.message,
         isError: true,
       },
     }),

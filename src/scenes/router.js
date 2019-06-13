@@ -4,7 +4,6 @@ import Home from './Home/HomeContainer';
 import NotFound from './NotFound/NotFound';
 import Auth from './Auth/Auth';
 import Privacy from './Privacy/Privacy';
-import Terms from './Terms/Terms';
 import Inbox from './Inbox/InboxContainer';
 import Bookmarks from './Bookmarks/BookmarksView';
 import Profile from './Profile/ProfileContainer';
@@ -18,16 +17,15 @@ export const routes = {
   login: '/auth/login',
   register: '/auth/register',
   passwordRestore: '/auth/recover',
-  terms: '/terms',
   privacy: '/privacy',
   inbox: '/inbox',
   bookmarks: '/bookmarks',
   profile: '/profile',
   search: '/search',
   user: '/users/:id',
-  product: '/products/:id',
+  product: '/listings/:id', // bug with modal gallery
   chat: '/inbox/:id',
-  addProduct: '/product/new',
+  addProduct: '/products/new',
 };
 
 class ModalSwitch extends Component {
@@ -55,20 +53,19 @@ class ModalSwitch extends Component {
         <Switch location={isModal ? this.previousLocation : location}>
           <Route
             exact
-            path="/(users/.+|products/.+|search/.+|bookmarks)?"
+            path="/(users/.+|listings/.+|search/.+|bookmarks)?"
             component={Home}
           />
           <Route path={routes.auth} component={Auth} />
           <Route path={routes.privacy} component={Privacy} />
-          <Route path={routes.terms} component={Terms} />
           <PrivateRoute path={routes.profile} component={Profile} />
           <PrivateRoute path={routes.bookmarks} component={Bookmarks} />
           <PrivateRoute path={routes.inbox} component={Inbox} />
-          <PrivateRoute path={routes.addProduct} component={AddProduct} />
+          <Route path={routes.addProduct} component={AddProduct} />
           <Route component={NotFound} />
         </Switch>
         {isModal ? (
-          <PrivateRoute path={routes.AddProduct} component={AddProductModal} />
+          <Route path={routes.AddProduct} component={AddProductModal} />
         ) : null}
       </>
     );

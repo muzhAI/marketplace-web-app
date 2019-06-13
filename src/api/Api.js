@@ -133,7 +133,7 @@ export const Messages = {
   },
 
   fetchMessages(chatId) {
-    return axios.get(`${urls.chats}/${chatId}/messages`);
+    return axios.get(`${urls.chats}/${chatId}/messages?limit=100`);
   },
 };
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { routes } from '../../router';
-import s from './ChatsLink.module.scss';
+import s from './InboxLink.module.scss';
 
-function ChatsLink() {
+function InboxLink() {
   return (
     <div>
       <Link className={s.link} to={routes.inbox}>
@@ -26,4 +26,4 @@ function ChatsLink() {
   );
 }
 
-export default ChatsLink;
+export default InboxLink;

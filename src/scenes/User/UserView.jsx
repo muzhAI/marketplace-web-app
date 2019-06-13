@@ -43,8 +43,18 @@ function User({ seller, sellerFetching, products, productsFetching }) {
   );
 }
 
-User.propTypes = {};
-// TODO: add proptypes
-User.defaultProps = {};
+User.propTypes = {
+  seller: T.object,
+  sellerFetching: T.bool,
+  products: T.array,
+  productsFetching: T.bool,
+};
+
+User.defaultProps = {
+  seller: null,
+  sellerFetching: false,
+  products: null,
+  productsFetching: false,
+};
 
 export default User;

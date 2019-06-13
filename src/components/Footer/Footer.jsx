@@ -13,9 +13,6 @@ function Footer() {
         <Link className={s.link} to={routes.privacy}>
           Privacy Policy
         </Link>
-        <Link className={s.link} to={routes.terms}>
-          Terms &amp; Conditions
-        </Link>
       </div>
     </footer>
   );

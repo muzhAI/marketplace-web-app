@@ -1,6 +1,7 @@
+import { normalize } from 'normalizr';
 import * as actions from './authActions';
-import Api from '../../api';
-import { colorSetter } from '../../utils/avatarsColorSetter';
+import Api, { schemas } from '../../api';
+import { viewerServices } from '../viewer';
 
 export function login(body) {
   return async function loginThunk(dispatch) {
@@ -10,11 +11,12 @@ export function login(body) {
 
       const result = await Api.Auth.login(body);
       const { user, token } = result.data;
-      const viewer = colorSetter(user);
-      console.log(user);
+      const viewer = viewerServices.avatarColorSetter(user);
+
+      const { entities } = normalize(viewer, schemas.user);
       Api.Auth.setToken(token);
 
-      dispatch(actions.login.success(viewer));
+      dispatch(actions.login.success({ viewer, entities }));
     } catch (err) {
       error = err;
       dispatch(actions.login.error({ message: err.message }));
@@ -31,11 +33,12 @@ export function register(body) {
 
       const result = await Api.Auth.register(body);
       const { user, token } = result.data;
-      const viewer = colorSetter(user);
-      console.log(user);
+      const viewer = viewerServices.avatarColorSetter(user);
+
+      const { entities } = normalize(viewer, schemas.user);
       Api.Auth.setToken(token);
 
-      dispatch(actions.register.success(viewer));
+      dispatch(actions.register.success({ viewer, entities }));
     } catch (err) {
       dispatch(actions.register.error({ message: err.message }));
       throw err;

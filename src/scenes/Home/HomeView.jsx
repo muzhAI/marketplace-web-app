@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import T from 'prop-types';
 import { Header, Footer, SearchBox } from '../../components';
 import { routes } from '../router';
-import { SellLink, ChatsLink } from '../components';
+import { SellLink, InboxLink } from '../components';
 import s from './Home.module.scss';
 import LatestList from '../LatestList/LatestListContainer';
 import Product from '../Product/ProductContainer';
@@ -15,7 +15,7 @@ function Home({ viewer }) {
   return (
     <>
       <Header light={false}>
-        {viewer && <ChatsLink />}
+        {viewer && <InboxLink />}
         <SellLink />
         <SearchBox />
       </Header>
